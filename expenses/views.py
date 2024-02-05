@@ -1,9 +1,14 @@
+from django.db.models import Sum, F, Q
+from django.utils import timezone
 from rest_framework import viewsets
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .models import Expense
+from budgets.models import Budget
+from categories.models import Category 
 from .serializers import ExpenseSerializer
-from rest_framework.exceptions import PermissionDenied
-from permissions.is_owner import IsOwner
+from permissions.is_owner import IsOwner 
 
 class ExpenseViewSet(viewsets.ModelViewSet):
     """
@@ -14,18 +19,37 @@ class ExpenseViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         if getattr(self, 'swagger_fake_view', False):
-            # Return an empty queryset for schema generation
             return Expense.objects.none()
-
-        user = self.request.user
-        if user.is_authenticated:
-            return Expense.objects.filter(user=user)
-        else:
-            # Handle unauthenticated access attempts
-            raise PermissionDenied("Authentication required")
+        return Expense.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
-        """
-        Assign the authenticated user as the owner of the expense.
-        """
         serializer.save(user=self.request.user)
+
+class AnalyticsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        start_date = request.query_params.get('start_date', timezone.now().date())
+        end_date = request.query_params.get('end_date', timezone.now().date())
+
+        expenses = Expense.objects.filter(
+            user=request.user,
+            date__range=[start_date, end_date]
+        ).values('category__name').annotate(total_expense=Sum('amount'))
+
+        expenses_dict = {item['category__name']: item['total_expense'] for item in expenses}
+
+        budgets = Budget.objects.filter(user=request.user).annotate(
+            remaining_budget=F('amount') - Sum('category__expenses__amount', filter=(
+                Q(category__expenses__date__range=[start_date, end_date]) &
+                Q(category__expenses__user=request.user)
+            ), distinct=True)
+        ).values('category__name', 'amount', 'remaining_budget')
+
+        response_data = {
+            'total_expenses': sum(expenses_dict.values()),
+            'expenses_by_category': list(expenses),
+            'budgets_and_remaining': list(budgets),
+        }
+
+        return Response(response_data)

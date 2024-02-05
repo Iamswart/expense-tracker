@@ -16,15 +16,9 @@ class BudgetViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         # Check if the request is part of generating Swagger documentation
         if getattr(self, 'swagger_fake_view', False):
-            # Return an empty queryset for schema generation
             return Budget.objects.none()
 
-        user = self.request.user
-        if user.is_authenticated:
-            return Budget.objects.filter(user=user)
-        else:
-            # Handle unauthenticated access attempts
-            raise PermissionDenied("Authentication required")
+        return Budget.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
         """
