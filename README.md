@@ -19,25 +19,21 @@ These instructions will get you a copy of the project up and running on your loc
    git clone https://github.com/Iamswart/expense-tracker
    cd expense-tracker
 
-2. **Create and activate a virtual environment (optional)**
-
- **On Windows**
+2. **Create and activate a virtual environment windows (optional)**
     ```bash
     virtualenv myenv
     myenv\Scripts\activate
 
-  **On Unix or MacOS**
+3. **Create and activate a virtual environment windows (optional)**
     ```bash
     virtualenv myenv
     source myenv/bin/activate
 
-Install the required packages
-
-3. **Install requirements**
+4. **Install requirements**
     ```bash
     pip install -r requirements.txt
 
-4. **Set up environment variables**
+5. **Set up environment variables**
 
     Create a .env file in the root directory of the project and add the following variables:
 
@@ -50,16 +46,17 @@ Install the required packages
     DATABASE_HOST='your_db_host'
     DATABASE_PORT='your_db_port'
 
-Replace the placeholders with your actual database configuration and Django secret key.
+    Replace the placeholders with your actual database configuration and Django secret key.
 
-5. **Run database migrations**
+6. **Run database migrations**
     ```bash
     python manage.py migrate
 
-6. **Start the development server**
+7. **Start the development server**
     ```bash
     python manage.py runserver
-The API will be available at http://localhost:8000/api/.
+    
+    The API will be available at http://localhost:8000/api/.
 
 ## Using the API
 
