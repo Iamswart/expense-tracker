@@ -20,49 +20,50 @@ These instructions will get you a copy of the project up and running on your loc
    cd expense-tracker
 Create and activate a virtual environment (optional)
 
-bash
-Copy code
-# On Windows
-virtualenv myenv
-myenv\Scripts\activate
+2. **On Windows**
+    ```bash
+    virtualenv myenv
+    myenv\Scripts\activate
 
-# On Unix or MacOS
-virtualenv myenv
-source myenv/bin/activate
+  **On Unix or MacOS**
+    ```bash
+    virtualenv myenv
+    source myenv/bin/activate
+
 Install the required packages
 
-bash
-Copy code
-pip install -r requirements.txt
-Set up environment variables
+3. **Install requirements**
+    ```bash
+    pip install -r requirements.txt
 
-Create a .env file in the root directory of the project and add the following variables:
+4. **Set up environment variables**
 
-plaintext
-Copy code
-DEBUG=True
-DJANGO_SECRET_KEY='your_secret_key'
-DATABASE_NAME='your_db_name'
-DATABASE_USER='your_db_user'
-DATABASE_PASSWORD='your_db_password'
-DATABASE_HOST='your_db_host'
-DATABASE_PORT='your_db_port'
+    Create a .env file in the root directory of the project and add the following variables:
+
+    ```bash
+    DEBUG=True
+    DJANGO_SECRET_KEY='your_secret_key'
+    DATABASE_NAME='your_db_name'
+    DATABASE_USER='your_db_user'
+    DATABASE_PASSWORD='your_db_password'
+    DATABASE_HOST='your_db_host'
+    DATABASE_PORT='your_db_port'
+
 Replace the placeholders with your actual database configuration and Django secret key.
 
-Run database migrations
+5. **Run database migrations**
+    ```bash
+    python manage.py migrate
 
-bash
-Copy code
-python manage.py migrate
-Start the development server
-
-bash
-Copy code
-python manage.py runserver
+6. **Start the development server**
+    ```bash
+    python manage.py runserver
 The API will be available at http://localhost:8000/api/.
 
-Using the API
-User Registration
+## Using the API
+
+### User Registration
+
 To create a new user:
 
 Endpoint: /api/users/register/
