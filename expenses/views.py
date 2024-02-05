@@ -11,9 +11,6 @@ from .serializers import ExpenseSerializer
 from permissions.is_owner import IsOwner 
 
 class ExpenseViewSet(viewsets.ModelViewSet):
-    """
-    A viewset for viewing and editing user-specific expenses.
-    """
     serializer_class = ExpenseSerializer
     permission_classes = [IsAuthenticated, IsOwner]
 

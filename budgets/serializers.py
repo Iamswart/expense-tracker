@@ -13,7 +13,6 @@ class BudgetSerializer(serializers.ModelSerializer):
         read_only_fields = ('user',) 
 
     def validate_amount(self, value):
-        """Ensure the budget amount is positive."""
         if value <= 0:
             raise serializers.ValidationError("Budget amount must be greater than zero.")
         return value

@@ -32,7 +32,6 @@ class ExpenseSerializer(serializers.ModelSerializer):
         amount = attrs.get('amount')
         user = self.context['request'].user
 
-        # Adjust the query to either include or exclude the current expense based on if it's an update
         existing_expenses_query = Expense.objects.filter(category=category, user=user)
         if self.instance:
             existing_expenses_query = existing_expenses_query.exclude(id=self.instance.id)
