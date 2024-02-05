@@ -18,9 +18,10 @@ These instructions will get you a copy of the project up and running on your loc
    ```bash
    git clone https://github.com/Iamswart/expense-tracker
    cd expense-tracker
-Create and activate a virtual environment (optional)
 
-2. **On Windows**
+2. **Create and activate a virtual environment (optional)**
+
+ **On Windows**
     ```bash
     virtualenv myenv
     myenv\Scripts\activate
