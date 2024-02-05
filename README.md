@@ -24,7 +24,7 @@ These instructions will get you a copy of the project up and running on your loc
     virtualenv myenv
     myenv\Scripts\activate
 
-3. **Create and activate a virtual environment windows (optional)**
+3. **Create and activate a virtual environment Unix or MacOS (optional)**
     ```bash
     virtualenv myenv
     source myenv/bin/activate
@@ -55,7 +55,7 @@ These instructions will get you a copy of the project up and running on your loc
 7. **Start the development server**
     ```bash
     python manage.py runserver
-    
+
     The API will be available at http://localhost:8000/api/.
 
 ## Using the API
@@ -64,36 +64,45 @@ These instructions will get you a copy of the project up and running on your loc
 
 To create a new user:
 
-Endpoint: /api/users/register/
-Method: POST
-Data: {"username": "yourusername", "password": "yourpassword"}
-Authentication
+- Endpoint: /api/users/register/
+- Method: POST
+- Data: {"username": "yourusername", "password": "yourpassword"}
+
+### Authentication
+
 To obtain a JWT access token:
 
-Endpoint: /api/token/
-Method: POST
-Data: {"username": "yourusername", "password": "yourpassword"}
+- Endpoint: /api/token/
+- Method: POST
+- Data: {"username": "yourusername", "password": "yourpassword"}
+
 To refresh a JWT access token:
 
-Endpoint: /api/token/refresh/
-Method: POST
-Data: {"refresh": "yourrefreshtoken"}
-Endpoints
-Expenses: /api/expenses/ (GET, POST, PUT, DELETE)
-Budgets: /api/budgets/ (GET, POST, PUT, DELETE)
-Categories: /api/categories/ (GET, POST, PUT, DELETE)
-Permissions:
-List Categories: Available to all authenticated users.
-Create, Update, and Delete Categories: Restricted to admin users only.
-Analytics: /api/analytics/ (GET)
+- Endpoint: /api/token/refresh/
+- Method: POST
+- Data: {"refresh": "yourrefreshtoken"}
+
+### Endpoints
+
+- Expenses: /api/expenses/ (GET, POST, PUT, DELETE)
+- Budgets: /api/budgets/ (GET, POST, PUT, DELETE)
+- Categories: /api/categories/ (GET, POST, PUT, DELETE)
+- Permissions:
+   - List Categories: Available to all authenticated users.
+   - Create, Update, and Delete Categories: Restricted to admin users only.
+- Analytics: /api/analytics/ (GET)
+
 Include the JWT access token in the Authorization header as follows: Authorization: Bearer <your_access_token>.
 
-Analytics
+### Analytics
+
 To view analytics, send a GET request to /api/analytics/ with optional start_date and end_date query parameters in the format YYYY-MM-DD.
 
-Documentation
+### Documentation
+
 Swagger UI
+
 The API documentation can be viewed through the Swagger UI.
 
-Endpoint: /documentation/
-Access: Open a web browser and navigate to http://localhost:8000/documentation/ to view the API documentation and interact with the API endpoints directly.
+- Endpoint: /documentation/
+- Access: Open a web browser and navigate to http://localhost:8000/documentation/ to view the API documentation and interact with the API endpoints directly.
