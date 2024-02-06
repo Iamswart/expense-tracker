@@ -106,3 +106,36 @@ The API documentation can be viewed through the Swagger UI.
 
 - Endpoint: /documentation/
 - Access: Open a web browser and navigate to http://localhost:8000/documentation/ to view the API documentation and interact with the API endpoints directly.
+
+
+## JWT Authentication Process
+
+This application utilizes JSON Web Tokens (JWT) for handling user authentication. The process is straightforward and ensures secure access to the API endpoints.
+
+### Registration
+
+New users can register by providing a username and password. Upon successful registration, the application generates a JWT refresh token and access token pair. The refresh token can be used to obtain new access tokens.
+
+### Obtaining Access Tokens
+
+Users can obtain access tokens by sending their username and password to the /api/token/ endpoint. The response includes both an access token and a refresh token. The access token is used in the Authorization header for subsequent API requests.
+
+### Refreshing Access Tokens
+
+When an access token expires, users can obtain a new access token by sending the refresh token to the /api/token/refresh/ endpoint. This ensures users remain authenticated without needing to provide their username and password again.
+
+### Implementation Highlights
+
+#### User Registration
+
+- The RegisterView allows new users to register by creating a new User instance. It utilizes Django's built-in User model and validate_password method for password validation, ensuring adherence to security best practices.
+
+#### Serializer Validation
+
+- The RegisterSerializer ensures that the username is unique and the password meets Django's validation criteria. It provides clear error messages for validation failures, enhancing the user experience
+
+#### JWT Tokens for Authentication
+
+- The application uses rest_framework_simplejwt for handling JWT tokens, a secure and widely adopted standard for API authentication. This choice simplifies token management and integrates seamlessly with Django Rest Framework.
+
+
